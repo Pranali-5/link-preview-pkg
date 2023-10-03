@@ -1,6 +1,6 @@
 {
   "name": "link-preview-pkg",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Pranali-5/link-preview.git"
+    "url": "git+https://github.com/Pranali-5/link-preview-pkg.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Pranali-5/link-preview/issues"
+    "url": "https://github.com/Pranali-5/link-preview-pkg/issues"
   },
-  "homepage": "https://github.com/Pranali-5/link-preview#readme",
+  "homepage": "https://github.com/Pranali-5/link-preview-pkg#readme",
   "dependencies": {
     "axios": "^0.27.2",
     "cheerio": "^1.0.0-rc.12",
