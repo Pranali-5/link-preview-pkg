@@ -13,10 +13,10 @@ const {
 } = require("./utils");
 
 const getLinkPreview = async (req) => {
+  const url = req
   if (!validateUrl(url)) {
     return ({ success: false, message: "Invalid URL" });
   }
-  const url = req
   try {
     const response = await axios.get(req);
 
@@ -37,6 +37,17 @@ const getLinkPreview = async (req) => {
     const domain = getDomain(url);
 
     const favicon = getFavicon(url, html);
+    console.log('here', {
+      success: true,
+      title,
+      description,
+      image,
+      sitename,
+      ogUrl,
+      type,
+      domain,
+      favicon,
+    })
     return {
       success: true,
       title,
