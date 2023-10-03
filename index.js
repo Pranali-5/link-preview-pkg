@@ -11,7 +11,10 @@ const {
   getFavicon,
   validateUrl,
 } = require("./utils");
+const cors = require("cors");
 
+const app = express();
+app.use(cors());
 const getLinkPreview = async (req) => {
   const url = req
   if (!validateUrl(url)) {
