@@ -1,20 +1,60 @@
-require("dotenv").config();
-const express = require("express");
-const morgan = require("morgan");
-const cors = require("cors");
+const axios = require("axios");
+const cheerio = require("cheerio");
+const {
+  getTitle,
+  getDescription,
+  getImage,
+  getSitename,
+  getType,
+  getOgUrl,
+  getDomain,
+  getFavicon,
+  validateUrl,
+} = require("./utils");
 
-const indexRouter = require("./routes/index");
+const getLinkPreview = async (req) => {
+  if (!validateUrl(url)) {
+    return ({ success: false, message: "Invalid URL" });
+  }
+  const url = req
+  try {
+    const response = await axios.get(req);
 
-const app = express();
+    const html = cheerio.load(response.data);
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+    const title = getTitle(html);
 
-app.use(morgan("tiny"));
-app.use(cors());
+    const description = getDescription(html);
 
-app.use("/", indexRouter);
+    const image = getImage(url, html);
 
-const PORT = process.env.PORT || 4000;
+    const sitename = getSitename(html);
 
-app.listen(PORT, () => console.log(`Server listening on PORT: ${PORT}`));
+    const ogUrl = getOgUrl(html);
+
+    const type = getType(html);
+
+    const domain = getDomain(url);
+
+    const favicon = getFavicon(url, html);
+    return {
+      success: true,
+      title,
+      description,
+      image,
+      sitename,
+      ogUrl,
+      type,
+      domain,
+      favicon,
+    };
+  } catch (err) {
+    console.log(err);
+    const status = err.response?.status || 400;
+    const statusText = err.response?.statusText || "Something went wrong";
+
+    return response.status(status).json({ sucess: false, message: statusText });
+  }
+};
+
+module.exports = { getLinkPreview };
